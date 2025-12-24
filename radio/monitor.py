@@ -190,27 +190,20 @@ class MonitorRadio(ctk.CTk):
         self.log("⛔ Monitoreo detenido", importante=True)
         
     def enviar_telegram(self, texto):
-        """Enviar mensaje a Telegram"""
-        try:
-            url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-            response = requests.post(url, 
-                         data={"chat_id": TELEGRAM_CHAT_ID, "text": texto}, 
-                         timeout=10)
-            if response.status_code == 200:
-                self.log("📤 Alerta enviada a Telegram")
-                return True
-            else:
-                self.log(f"⚠️ Error Telegram: HTTP {response.status_code}")
-                return False
-        except Exception as e:
-            self.log(f"❌ Error Telegram: {str(e)[:50]}")
-            return False
+    """Enviar mensaje a Telegram usando el módulo"""
+    from telegram import enviar_alerta
+    if enviar_alerta(texto):
+        self.log("📤 Alerta enviada a Telegram")
+        return True
+    else:
+        self.log("⚠️ Error enviando alerta")
+        return False
             
     def enviar_heartbeat(self, audio_level, es_silencio):
         """Enviar heartbeat al servidor"""
         try:
             datos = {
-                "radio_id": "lg_fm_radio",
+                "radio_id": "radio_fm_97.7",
                 "timestamp": time.time(),
                 "audio_level": audio_level,
                 "is_silent": es_silencio,

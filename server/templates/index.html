@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Radio 97.7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <meta http-equiv="refresh" content="30">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🎙️</span>
+                <div class="logo-text">
+                    <h1>Radio Monitor</h1>
+                    <span>97.7 FM</span>
+                </div>
+            </div>
+            
+            <div class="status-panel">
+                <div class="status-item">
+                    <span class="status-label">Estado</span>
+                    <div class="status-indicator {{ 'online' if estado.online else 'offline' }}">
+                        <span class="pulse-dot"></span>
+                        {{ 'ONLINE' if estado.online else 'OFFLINE' }}
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <span class="status-label">Audio</span>
+                    <div class="audio-status {{ 'active' if not estado.is_silent else 'silent' }}">
+                        {{ 'TRANSMITIENDO' if not estado.is_silent else 'SILENCIO' }}
+                    </div>
+                </div>
+                
+                <div class="status-item">
+                    <span class="status-label">Nivel</span>
+                    <div class="level-display">{{ estado.audio_level }} dBFS</div>
+                </div>
+                
+                <div class="status-item">
+                    <span class="status-label">Última señal</span>
+                    <div class="time-display">{{ estado.tiempo_str }}</div>
+                    <div class="time-ago">Hace {{ estado.hace }}s</div>
+                </div>
+                
+                <div class="status-item">
+                    <span class="status-label">Radio ID</span>
+                    <div class="id-display">{{ estado.radio_id }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2>Monitor de Audio en Tiempo Real</h2>
+                <div class="header-info">
+                    <span>🔄 Auto-refresh: 30s</span>
+                    <span>📍 UTC-3</span>
+                </div>
+            </div>
+            
+            <!-- Audio Visualizer -->
+            <div class="visualizer-container">
+                <canvas id="audioChart"></canvas>
+            </div>
+            
+            <!-- Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-content">
+                        <span class="metric-value">{{ estado.audio_level }}</span>
+                        <span class="metric-label">Nivel Actual (dBFS)</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">⏱️</div>
+                    <div class="metric-content">
+                        <span class="metric-value">{{ estado.hace }}</span>
+                        <span class="metric-label">Segundos desde última señal</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">{{ '🔊' if not estado.is_silent else '🔇' }}</div>
+                    <div class="metric-content">
+                        <span class="metric-value">{{ 'ACTIVO' if not estado.is_silent else 'INACTIVO' }}</span>
+                        <span class="metric-label">Estado del Stream</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">{{ '🟢' if estado.online else '🔴' }}</div>
+                    <div class="metric-content">
+                        <span class="metric-value">{{ 'CONECTADO' if estado.online else 'DESCONECTADO' }}</span>
+                        <span class="metric-label">Conexión PC Radio</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración del gráfico
+        const ctx = document.getElementById('audioChart').getContext('2d');
+        const audioLevel = {{ estado.audio_level }};
+        const isSilent = {{ 'true' if estado.is_silent else 'false' }};
+        
+        // Generar datos simulados de forma de onda
+        const generateWaveform = (level, silent) => {
+            const data = [];
+            const points = 100;
+            const amplitude = silent ? 2 : Math.abs(level) / 3;
+            
+            for (let i = 0; i < points; i++) {
+                const x = (i / points) * Math.PI * 4;
+                const noise = (Math.random() - 0.5) * amplitude * 0.3;
+                const wave = Math.sin(x) * amplitude + noise;
+                data.push(wave);
+            }
+            return data;
+        };
+        
+        const waveformData = generateWaveform(audioLevel, isSilent);
+        
+        const audioChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array(100).fill(''),
+                datasets: [{
+                    label: 'Señal de Audio',
+                    data: waveformData,
+                    borderColor: isSilent ? 'rgba(239, 68, 68, 0.8)' : 'rgba(34, 197, 94, 0.8)',
+                    backgroundColor: isSilent ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false
+                    },
+                    y: {
+                        display: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.5)',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 750
+                }
+            }
+        });
+    </script>
+</body>
+</html>

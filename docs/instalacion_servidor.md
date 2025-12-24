@@ -18,7 +18,7 @@ Paso 2: Subir archivos
 Opción A: Desde Git
 bash# En la consola Bash de PythonAnywhere
 cd ~
-git clone https://github.com/tu-usuario/radio-monitor.git
+git clone https://github.com/Fernando-gonzalez97/estructura-inicial-del-proyecto
 cd radio-monitor/server
 Opción B: Upload manual
 
@@ -61,7 +61,7 @@ bashcd ~/radio-monitor/server
 source venv/bin/activate
 python monitor.py
 Paso 6: Verificar
-Visitá: https://tuusuario.pythonanywhere.com
+Visitá: https://fernandogonzalezz97.pythonanywhere.com/
 Deberías ver el dashboard del monitor.
 📋 Opción 2: VPS (DigitalOcean, AWS, etc.)
 Requisitos
@@ -79,7 +79,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install python3 python3-pip python3-venv -y
 
 # Clonar repositorio
-git clone https://github.com/tu-usuario/radio-monitor.git
+git clone https://github.com/Fernando-gonzalez97/estructura-inicial-del-proyecto
 cd radio-monitor/server
 
 # Crear entorno virtual
@@ -138,10 +138,12 @@ FLASK_PORT = 5000
 FLASK_DEBUG = False  # SIEMPRE False en producción
 🧪 Pruebas
 Test 1: API funcionando
-bashcurl https://tuusuario.pythonanywhere.com/ping
-# Respuesta esperada: {"status":"ok","mensaje":"Servidor activo",...}
+bashcurl https://fernandogonzalezz97.pythonanywhere.com/ping
+# Respuesta esperada: "{"mensaje":"Servidor activo","status":"ok","timestamp":"2025-12-23T00:49:47.759269"}
 Test 2: Enviar heartbeat manual
-bashcurl -X POST https://tuusuario.pythonanywhere.com/heartbeat \
+bashcurl -X POST https://tuusuario.pythonanywhere.com/heartbeat \ 
+https://fernandogonzalezz97.pythonanywhere.com/ (interfaz web)
+
   -H "Content-Type: application/json" \
   -d '{
     "radio_id": "test",
@@ -150,7 +152,7 @@ bashcurl -X POST https://tuusuario.pythonanywhere.com/heartbeat \
     "is_silent": false
   }'
 Test 3: Ver estado
-bashcurl https://tuusuario.pythonanywhere.com/status
+bashcurl https://fernandogonzalezz97.pythonanywhere.com/status (API JSON)
 📊 Monitoreo del Servidor
 Ver logs
 bash# En PythonAnywhere
@@ -197,6 +199,6 @@ Hacé backups de configuración
 
 🔗 URLs útiles
 
-Dashboard: https://tuusuario.pythonanywhere.com
-API Status: https://tuusuario.pythonanywhere.com/status
-Ping: https://tuusuario.pythonanywhere.com/ping
+Dashboard: https://fernandogonzalezz97.pythonanywhere.com/
+API Status: https://fernandogonzalezz97.pythonanywhere.com/statu
+Ping: https://fernandogonzalezz97.pythonanywhere.com//ping

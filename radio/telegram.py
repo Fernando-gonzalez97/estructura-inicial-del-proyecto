@@ -4,6 +4,8 @@ Bot de Telegram - Envío de Alertas
 
 import requests
 from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from telegram import enviar_alerta
+
 
 def enviar_alerta(mensaje):
     """

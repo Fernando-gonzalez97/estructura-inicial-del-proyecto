@@ -95,7 +95,7 @@ pythondatos = {
 
 # Envía al servidor
 requests.post(
-    "https://tuusuario.pythonanywhere.com/heartbeat",
+    "https://fernandogonzalezz97.pythonanywhere.com/",
     json=datos
 )
 3️⃣ Recepción en Servidor
@@ -170,13 +170,12 @@ Alerta de Caída (desde Servidor)
 
 Última señal: hace 180s
 Nivel audio: -45.2 dBFS
-Hora: 14:35:20
+Hora: 
 Causa: Sin heartbeats
 Alerta de Restauración
 ✅ Radio restaurada
 
 Señal recibida correctamente
-Hora: 14:40:15
 ⏱️ Tiempos Configurables
 ParámetroValorDescripciónCHECK_INTERVAL2sFrecuencia de análisis de audioHEARTBEAT_INTERVAL30sEnvío de señales al servidorMIN_SILENCE_DURATION10sSilencio mínimo para alertarMAX_HEARTBEAT_TIMEOUT120sTimeout para detectar caídaMONITOR_CHECK_INTERVAL30sFrecuencia del vigilante
 🎚️ Umbrales de Audio
@@ -224,11 +223,6 @@ v1.1 (Planeado)
 
 v1.2 (Futuro)
 
- Machine learning para falsos positivos
- Integración con Icecast stats
- App móvil
- WebSockets para updates en tiempo real
-
 🐛 Depuración
 Logs a revisar
 PC Radio:
@@ -237,13 +231,13 @@ Servidor:
 bashlogs/servidor.log
 Endpoints de debug
 bash# ¿Servidor vivo?
-curl https://tuusuario.pythonanywhere.com/ping
+url https://fernandogonzalezz97.pythonanywhere.com//ping
 
 # Estado actual
-curl https://tuusuario.pythonanywhere.com/status
+url https://fernandogonzalezz97.pythonanywhere.com//status
 
 # Dashboard visual
-https://tuusuario.pythonanywhere.com/
+https://fernandogonzalezz97.pythonanywhere.com/
 📚 Recursos Técnicos
 
 Flask Documentation
