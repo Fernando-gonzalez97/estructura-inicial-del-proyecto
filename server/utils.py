@@ -32,6 +32,8 @@ def log_evento(mensaje):
     argentina_tz = timezone(timedelta(hours=-3))
     timestamp = datetime.now(argentina_tz).strftime("%Y-%m-%d %H:%M:%S")
     
+    log_msg = f"[{timestamp}] {mensaje}\n"
+    
     try:
         os.makedirs("../logs", exist_ok=True)
         with open(LOG_FILE, 'a', encoding='utf-8') as f:
