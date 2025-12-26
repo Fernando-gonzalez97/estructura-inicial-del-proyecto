@@ -199,6 +199,4 @@ Hacé backups de configuración
 
 🔗 URLs útiles
 
-Dashboard: https://fernandogonzalezz97.pythonanywhere.com/
-API Status: https://fernandogonzalezz97.pythonanywhere.com/statu
-Ping: https://fernandogonzalezz97.pythonanywhere.com//ping
+Dashboard: https://estructura-inicial-del-proyecto.onrender.com//

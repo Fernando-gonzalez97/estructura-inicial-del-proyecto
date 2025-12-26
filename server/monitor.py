@@ -62,4 +62,15 @@ def monitor_conexion():
 def resetear_alerta():
     """Resetear flag de alerta cuando llega un heartbeat"""
     global alerta_desconexion_enviada
-    alerta_desconexion_enviada = False
+    
+    # Si estaba desconectado, enviar mensaje de reconexión
+    if alerta_desconexion_enviada:
+        mensaje = (
+            f"✅ RECONEXIÓN EXITOSA\n\n"
+            f"Monitor Radio 97.7 volvió a responder"
+        )
+        
+        if enviar_alerta(mensaje):
+            log_evento("📤 Alerta de reconexión enviada a Telegram")
+        
+        alerta_desconexion_enviada = False

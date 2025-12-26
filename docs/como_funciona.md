@@ -231,13 +231,14 @@ Servidor:
 bashlogs/servidor.log
 Endpoints de debug
 bash# ¿Servidor vivo?
-url https://fernandogonzalezz97.pythonanywhere.com//ping
+url https://estructura-inicial-del-proyecto.onrender.com/
 
 # Estado actual
-url https://fernandogonzalezz97.pythonanywhere.com//status
+url https://estructura-inicial-del-proyecto.onrender.com/
+
 
 # Dashboard visual
-https://fernandogonzalezz97.pythonanywhere.com/
+https://estructura-inicial-del-proyecto.onrender.com/
 📚 Recursos Técnicos
 
 Flask Documentation

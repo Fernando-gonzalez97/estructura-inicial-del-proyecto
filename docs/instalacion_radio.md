@@ -52,7 +52,7 @@ python# URL del stream de tu radio
 STREAM_URL = "http://tu-radio.com:8000/stream"
 
 # URL del servidor externo (cuando lo tengas)
-SERVER_URL = "http://tuusuario.pythonanywhere.com/heartbeat"
+SERVER_URL = https://estructura-inicial-del-proyecto.onrender.com/
 
 # Credenciales de Telegram
 TELEGRAM_BOT_TOKEN = "tu_token_aqui"
