@@ -13,7 +13,7 @@ STREAM_URL = "http://stream.lgcomunicaciones.com:8045/;stream/1"
 # ========================
 # URL del servidor donde enviar heartbeats
 # URL del servidro
-SERVER_URL =  "https://monitorradio97-7.onrender.com/heartbeat"
+SERVER_URL =  "https://estructura-inicial-del-proyecto.onrender.com/heartbeat"
 
 # ========================
 # TELEGRAM (Alertas locales)
