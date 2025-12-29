@@ -199,4 +199,5 @@ Hacé backups de configuración
 
 🔗 URLs útiles
 
-Dashboard: https://estructura-inicial-del-proyecto.onrender.com//
+Dashboard: SERVER_URL = "https://monitorradio97-7.onrender.com"
+
